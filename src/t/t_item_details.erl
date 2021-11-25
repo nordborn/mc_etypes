@@ -30,7 +30,7 @@
     n_ordered_approx := integer() | none,
     discount_percent := integer() | none,
     stocks := [t_stock:t()],
-    is_sold_out := bool() | none,
+    is_sold_out := boolean() | none,
     rating := float() | none,
     n_feedbacks := non_neg_integer() | none,
     upd := calendar:datetime(),

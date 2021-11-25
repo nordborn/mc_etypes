@@ -40,7 +40,7 @@ new(CatId, CatDetails) ->
     #{
         id => CatId,
         details => CatDetails,
-        upd => my_calendar:now_utc()
+        upd => calendar:universal_time()
     }.
 
 %% == GETTERS/SETTERS ==
