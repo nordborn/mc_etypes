@@ -39,3 +39,9 @@ get_market({c, Market, _}) -> Market.
 
 -spec get_cat_mkt_id(t()) -> cat_mkt_id().
 get_cat_mkt_id({c, _, CatMktId}) -> CatMktId.
+
+-spec to_bin(t()) -> binary().
+to_bin({c, Mkt, CatMktId}) when is_integer(CatMktId) ->
+    to_bin({c, Mkt, integer_to_binary(CatMktId)});
+to_bin({c, Mkt, CatMktId}) when is_binary(CatMktId)->
+    <<"cat_", (t_market:to_binchar(Mkt))/binary, $_, CatMktId/binary>>.
