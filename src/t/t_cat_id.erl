@@ -14,7 +14,8 @@
     new/2,
     verify/1,
     get_market/1,
-    get_cat_mkt_id/1
+    get_cat_mkt_id/1,
+    to_short_bin/1
 ]).
 
 -export_type([
@@ -40,8 +41,9 @@ get_market({c, Market, _}) -> Market.
 -spec get_cat_mkt_id(t()) -> cat_mkt_id().
 get_cat_mkt_id({c, _, CatMktId}) -> CatMktId.
 
--spec to_bin(t()) -> binary().
-to_bin({c, Mkt, CatMktId}) when is_integer(CatMktId) ->
-    to_bin({c, Mkt, integer_to_binary(CatMktId)});
-to_bin({c, Mkt, CatMktId}) when is_binary(CatMktId)->
-    <<"cat_", (t_market:to_binchar(Mkt))/binary, $_, CatMktId/binary>>.
+-spec to_short_bin(t()) -> binary().
+%% @doc bin("cw123")
+to_short_bin({c, Mkt, CatMktId}) when is_integer(CatMktId) ->
+    to_short_bin({c, Mkt, integer_to_binary(CatMktId)});
+to_short_bin({c, Mkt, CatMktId}) when is_binary(CatMktId)->
+    <<"c", (t_market:to_binchar(Mkt))/binary, CatMktId/binary>>.

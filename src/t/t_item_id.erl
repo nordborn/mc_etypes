@@ -14,7 +14,8 @@
     new/2,
     verify/1,
     get_item_mkt_id/1,
-    get_market/1
+    get_market/1,
+    to_short_bin/1
 ]).
 
 -export_type([
@@ -38,3 +39,10 @@ get_item_mkt_id({i, _, ItemMktId}) -> ItemMktId.
 
 -spec get_market(t()) -> t_market:t().
 get_market({i, Mkt, _}) -> Mkt.
+
+-spec to_short_bin(t()) -> binary().
+%% @doc bin("iw123")
+to_short_bin({i, Mkt, ItemMktId}) when is_integer(ItemMktId) ->
+    to_short_bin({i, Mkt, integer_to_binary(ItemMktId)});
+to_short_bin({i, Mkt, ItemMktId}) when is_binary(ItemMktId)->
+    <<"i", (t_market:to_binchar(Mkt))/binary, ItemMktId/binary>>.
